@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro - Tutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0e6e6f1.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --naranja: #f28c28;
+      --naranja-oscuro: #d86f00;
+      --claro: #fff8f0;
+      --blanco-transparente: rgba(255, 255, 255, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #fff0e5, #ffe9cc);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .registro-box {
+      background: var(--blanco-transparente);
+      border: 1px solid var(--naranja);
+      border-radius: 20px;
+      padding: 2.5rem 3rem;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.8s ease-out;
+      backdrop-filter: blur(8px);
+    }
+
+    .registro-box h2 {
+      text-align: center;
+      color: var(--naranja-oscuro);
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 0.3rem;
+    }
+
+    .form-group input {
+      padding: 0.7rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .separador {
+      margin: 2rem 0 1rem;
+      font-weight: bold;
+      color: var(--naranja);
+      text-align: center;
+      font-size: 1.1rem;
+      position: relative;
+    }
+
+    .separador::before,
+    .separador::after {
+      content: "";
+      height: 1px;
+      background: #f28c28;
+      flex: 1;
+      margin: 0 1rem;
+      display: inline-block;
+    }
+
+    .separador::before {
+      margin-left: 0;
+    }
+
+    .separador::after {
+      margin-right: 0;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 0.9rem;
+      font-size: 1rem;
+      background-color: var(--naranja);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background-color: var(--naranja-oscuro);
+      transform: scale(1.02);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="registro-box">
+    <h2><i class="fas fa-user-plus"></i> Registro de Tutor</h2>
+
+    <form onsubmit="registrarUsuario(event)">
+      <div class="form-group">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" required>
+      </div>
+      <div class="form-group">
+        <label for="tipo_id">Tipo de Identificación</label>
+        <input type="text" id="tipo_id" required>
+      </div>
+      <div class="form-group">
+        <label for="numero_id">Número de Identificación</label>
+        <input type="text" id="numero_id" required>
+      </div>
+      <div class="form-group">
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" required>
+      </div>
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input type="text" id="telefono" required>
+      </div>
+      <div class="form-group">
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" required>
+      </div>
+
+      <div class="separador">Información de la Mascota</div>
+
+      <div class="form-group">
+        <label for="mascota">Nombre de la mascota</label>
+        <input type="text" id="mascota" required>
+      </div>
+      <div class="form-group">
+        <label for="especie">Especie</label>
+        <input type="text" id="especie" required>
+      </div>
+      <div class="form-group">
+        <label for="edad">Edad de la mascota</label>
+        <input type="text" id="edad" required>
+      </div>
+
+      <button type="submit"><i class="fas fa-paw"></i> Registrar</button>
+    </form>
+  </div>
+
+  <script>
+    function registrarUsuario(event) {
+      event.preventDefault();
+
+      const nombre = document.getElementById("nombre").value;
+      const correo = document.getElementById("correo").value;
+      const password = document.getElementById("password").value;
+      const mascota = document.getElementById("mascota").value;
+      const especie = document.getElementById("especie").value;
+      const edad = document.getElementById("edad").value;
+
+      const usuario = {
+        nombre,
+        correo,
+        password,
+        mascota,
+        especie,
+        edad
+      };
+
+      localStorage.setItem(`usuario_${correo}`, JSON.stringify(usuario));
+      localStorage.setItem("tutorActivo", correo);
+
+      alert("Registro exitoso. Ahora puedes iniciar sesión.");
+      window.location.href = "TutorIngreso.html";
+    }
+  </script>
+</body>
+</html>

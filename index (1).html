@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orange Hearth</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0e6e6f1.js" crossorigin="anonymous"></script>
+<style>
+  :root {
+    --naranja: #f28c28;
+    --naranja-oscuro: #d86f00;
+    --gris-oscuro: #2d2f2f;
+    --gris-suave: #f7f4f0;
+    --blanco: #ffffff;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--gris-suave);
+    color: var(--gris-oscuro);
+  }
+
+  .menu-toggle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--blanco);
+    border: 2px solid var(--naranja);
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 2000;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    background: var(--naranja);
+    color: white;
+    padding: 2rem 1rem;
+    box-shadow: 3px 0 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .sidebar .close-btn {
+    text-align: right;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .sidebar h2 {
+    margin: 2rem 0 1rem;
+    text-align: center;
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sidebar ul li {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+
+  /* HERO */
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem 5% 2rem;
+    background: linear-gradient(to right, #fff5e6, #ffe9cc);
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
+
+  .hero-text {
+    flex: 1;
+    min-width: 280px;
+    padding-right: 2rem;
+    animation: fadeIn 1s ease-out;
+  }
+
+  .hero-text h1 {
+    font-size: 3rem;
+    color: var(--naranja-oscuro);
+    margin-bottom: 1rem;
+  }
+
+  .hero-text p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    text-align: justify;
+  }
+
+  .hero-logo {
+    flex: 1;
+    text-align: center;
+    min-width: 280px;
+  }
+
+  .hero-logo .logo-box {
+    background: var(--blanco);
+    padding: 3rem; /* Aumentado */
+    border-radius: 120px; /* Más redondo */
+    box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+    display: inline-block;
+  }
+
+  .hero-logo img {
+    width: 240px; /* Aumentado (antes 180px) */
+    height: auto;
+  }
+
+  /* ROLES */
+  .roles-section {
+    padding: 3rem 5%;
+    text-align: center;
+  }
+
+  .roles-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--gris-oscuro);
+  }
+
+  .role-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .role-card {
+    background: rgba(255, 255, 255, 0.85);
+    border: 2px solid var(--naranja);
+    border-radius: 25px;
+    padding: 1.5rem;
+    width: 250px; /* Aumentado (antes 220px) */
+    height: 300px; /* Aumentado (antes 260px) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--gris-oscuro);
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  }
+
+  .role-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  }
+
+  .role-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.role-card:hover img {
+  transform: scale(1.05);
+}
+
+
+  .role-card span {
+    font-size: 1.4rem; /* Más grande */
+    font-weight: bold;
+    color: var(--naranja-oscuro);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column-reverse;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero-text {
+      padding: 0;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="menu-toggle" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="close-btn" onclick="toggleSidebar()">✖</div>
+    <h2>Orange Hearth</h2>
+    <ul>
+      <li><i class="fas fa-home"></i> Inicio</li>
+      <li><i class="fas fa-stethoscope"></i> Servicios</li>
+      <li><i class="fas fa-file-medical"></i> Planes</li>
+      <li><i class="fas fa-envelope"></i> Contacto</li>
+    </ul>
+  </aside>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Bienvenido a OrangeHearth</h1>
+      <p>Tu espacio digital para el cuidado animal. Con nuestra plataforma, veterinarios y tutores pueden gestionar citas, acceder a historiales y mucho más.</p>
+      <p>Todo lo que necesitas para cuidar a tus mascotas, en un solo lugar.</p>
+    </div>
+    <div class="hero-logo">
+      <div class="logo-box">
+        <img src="LogoOrangeHearth.png" alt="Logo Orange Hearth">
+      </div>
+    </div>
+  </section>
+
+  <section class="roles-section">
+    <h2>Selecciona tu rol para continuar</h2>
+    <div class="role-boxes">
+      <div class="role-card" onclick="window.location.href='TutorIngreso.html'">
+        <img src="Usuario.png" alt="Tutor">
+        <span>Tutor</span>
+      </div>
+      <div class="role-card" onclick="window.location.href='VeterinarioIngreso.html'">
+        <img src="MedicoVeterinario.png" alt="Veterinario">
+        <span>Veterinario</span>
+      </div>
+      <div class="role-card" onclick="window.location.href='dashboardAdmin.html'">
+        <img src="Admin.png" alt="Administrador">
+        <span>Administrador</span>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+  </script>
+  <script src="script.js">
+  </script>
+  </body>
+</html>

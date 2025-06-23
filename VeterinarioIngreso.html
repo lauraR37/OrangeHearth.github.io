@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ingreso Veterinario - Orange Hearth</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0e6e6f1.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --naranja: #f28c28;
+      --naranja-oscuro: #d86f00;
+      --fondo: linear-gradient(135deg, #fff0e5, #ffe9cc);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--fondo);
+      font-family: 'Nunito', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 2rem;
+    }
+
+    .contenedor {
+      display: flex;
+      gap: 2rem;
+      background: white;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 850px;
+      width: 100%;
+      align-items: center;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .form-container {
+      flex: 1;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      color: var(--naranja-oscuro);
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-container h2 i {
+      margin-right: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1.2rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      transition: box-shadow 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--naranja);
+      box-shadow: 0 0 0 2px var(--naranja);
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: var(--naranja);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: var(--naranja-oscuro);
+      transform: scale(1.02);
+    }
+
+    .imagen {
+      flex: 1;
+      text-align: center;
+    }
+
+    .imagen img {
+      max-width: 100%;
+      max-height: 300px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .contenedor {
+        flex-direction: column-reverse;
+      }
+      .imagen {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <div class="form-container">
+      <h2><i class="fas fa-user-md"></i>Ingreso Veterinario</h2>
+      <input type="email" id="correo" placeholder="Correo" required>
+      <input type="password" id="clave" placeholder="Contraseña" required>
+      <button onclick="ingresarVeterinario()"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
+    </div>
+
+    <div class="imagen">
+      <img src="veterinario.png" alt="Veterinario mascota">
+    </div>
+  </div>
+
+  <script>
+    function ingresarVeterinario() {
+      const correo = document.getElementById("correo").value;
+      const clave = document.getElementById("clave").value;
+      const veterinarios = JSON.parse(localStorage.getItem("veterinarios")) || [];
+
+      const vet = veterinarios.find(v => v.correo === correo && v.clave === clave);
+      if (vet) {
+        localStorage.setItem("veterinarioActivo", JSON.stringify(vet));
+        window.location.href = "dashboardVeterinario.html";
+      } else {
+        alert("Credenciales incorrectas.");
+      }
+    }
+  </script>
+</body>
+</html>

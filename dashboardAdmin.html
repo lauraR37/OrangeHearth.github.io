@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrador - ORANGE HEARTH</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff8f0;
+    }
+      .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f28c28;
+    padding: 0.8rem 1.5rem;
+    color: white;
+  }
+
+  .navbar .brand {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 0.4rem 1rem;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    color: #f28c28;
+    font-size: 1.4rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+  }
+
+  .navbar .brand:hover {
+    transform: scale(1.02);
+  }
+
+  .navbar .brand img {
+    height: 50px;
+    margin-right: 0.8rem;
+  }
+
+  .navbar button {
+    background-color: white;
+    color: #f28c28;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .navbar button:hover {
+    background-color: #ffe0c0;
+  }
+
+    header {
+      background-color: #f28c28;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    .logout a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      height: calc(100vh - 70px);
+    }
+
+    .sidebar {
+      width: 240px;
+      background-color: #d86f00;
+      padding: 2rem 1rem;
+      color: white;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin: 1rem 0;
+      cursor: pointer;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 0.5rem;
+      border-radius: 6px;
+    }
+
+    .sidebar a:hover {
+      background-color: #f28c28;
+    }
+
+    .main-content {
+      flex-grow: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .section {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .section h3 {
+      color: #d86f00;
+    }
+    .section button {
+  margin-top: 1rem;
+  margin-right: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #f28c28;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.section button:hover {
+  background-color: #d86f00;
+  transform: scale(1.03);
+}
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="brand">
+    <img src="LogoOrangeHearth.png" alt="Logo">
+    OrangeHearth
+  </div>
+  <button onclick="cerrarSesion()">Cerrar sesión</button>
+</header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Administración</h2>
+      <ul>
+        <li><a href="#resumen">Resumen General</a></li>
+        <li><a href="#estadisticas">Estadísticas</a></li>
+        <li><a href="#accesos">Accesos Directos</a></li>
+        <li><a href="#actividades">Últimas Actividades</a></li>
+        <li><a href="#usuarios">Administrar Usuarios</a></li>
+        <li><a href="#registro-vet">Registrar Veterinario</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <section id="resumen" class="section">
+        <h3>Resumen General</h3>
+        <p>Total de usuarios, mascotas, citas, etc.</p>
+      </section>
+
+      <section id="estadisticas" class="section">
+        <h3>Estadísticas</h3>
+        <p>Gráficas y datos sobre el uso de la página.</p>
+      </section>
+
+      <section id="accesos" class="section">
+  <h3>Accesos Directos</h3>
+  <p>Enlaces a las funciones más usadas.</p>
+</section>
+
+      <section id="actividades" class="section">
+        <h3>Últimas Actividades</h3>
+        <p>Registros recientes de los movimientos en la página.</p>
+         <button onclick="window.location.href='404.html'">Ver màs</button>
+      </section>
+
+      <section id="usuarios" class="section">
+        <h3>Administrar Usuarios</h3>
+        <p>Desde aquí podrás visualizar y gestionar usuarios registrados.</p>
+        <!-- Futuro: Aquí puedes colocar tablas o listas de usuarios -->
+      </section>
+
+      <section id="registro-vet" class="section">
+        <h3>Registrar Médico Veterinario</h3>
+        <div class="form-group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" required>
+        </div>
+        <div class="form-group">
+          <label for="clave">Contraseña</label>
+          <input type="password" id="clave" required>
+        </div>
+        <div class="form-group">
+          <button onclick="registrarVeterinario()">Registrar Veterinario</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function registrarVeterinario() {
+      const nombre = document.getElementById("nombre").value;
+      const correo = document.getElementById("correo").value;
+      const clave = document.getElementById("clave").value;
+
+      if (!nombre || !correo || !clave) {
+        alert("Por favor completa todos los campos.");
+        return;
+      }
+
+      const veterinarios = JSON.parse(localStorage.getItem("veterinarios")) || [];
+      veterinarios.push({ nombre, correo, clave });
+      localStorage.setItem("veterinarios", JSON.stringify(veterinarios));
+
+      alert("Veterinario registrado correctamente.");
+
+      document.getElementById("nombre").value = "";
+      document.getElementById("correo").value = "";
+      document.getElementById("clave").value = "";
+    }
+  </script>
+     <script>
+  function cerrarSesion() {
+    // Aquí puedes limpiar datos si lo necesitas
+    localStorage.removeItem("adminActivo");
+    // Redirigir a la página de cierre de sesión
+    window.location.href = "logout.html";
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Mascota</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0e6e6f1.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --naranja: #f28c28;
+      --naranja-oscuro: #d86f00;
+      --fondo: linear-gradient(135deg, #fff0e5, #ffe9cc);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--fondo);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .contenedor {
+      display: flex;
+      gap: 2rem;
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
+      width: 100%;
+      align-items: center;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .formulario {
+      flex: 1;
+    }
+
+    .formulario h2 {
+      text-align: center;
+      color: var(--naranja-oscuro);
+      margin-bottom: 1.5rem;
+      font-size: 1.7rem;
+    }
+
+    .formulario h2 i {
+      margin-right: 0.5rem;
+    }
+
+    .formulario input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .formulario input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--naranja);
+      border-color: var(--naranja);
+    }
+
+    .formulario button {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: var(--naranja);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .formulario button:hover {
+      background-color: var(--naranja-oscuro);
+      transform: scale(1.02);
+    }
+
+    .imagen-mascota {
+      flex: 1;
+      text-align: center;
+    }
+
+    .imagen-mascota img {
+      max-width: 100%;
+      max-height: 300px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .contenedor {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+      .imagen-mascota {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <div class="formulario">
+      <h2><i class="fas fa-dog"></i> Registrar Mascota</h2>
+      <form id="form-mascota">
+        <input type="text" id="nombre" placeholder="Nombre de la mascota" required />
+        <input type="text" id="especie" placeholder="Especie" required />
+        <input type="text" id="raza" placeholder="Raza" required />
+        <input type="text" id="edad" placeholder="Edad" required />
+        <button type="submit"><i class="fas fa-paw"></i> Registrar</button>
+      </form>
+    </div>
+
+    <div class="imagen-mascota">
+      <img src="huellas-de-garras.png" alt="Mascota ilustrativa">
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("form-mascota").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const correoTutor = localStorage.getItem("tutorActivo");
+      if (!correoTutor) {
+        alert("No se encontró el tutor activo.");
+        return;
+      }
+
+      const nombre = document.getElementById("nombre").value;
+      const especie = document.getElementById("especie").value;
+      const raza = document.getElementById("raza").value;
+      const edad = document.getElementById("edad").value;
+
+      const nuevaMascota = { nombre, especie, raza, edad };
+      const clave = `mascotas_${correoTutor}`;
+      const lista = JSON.parse(localStorage.getItem(clave)) || [];
+
+      lista.push(nuevaMascota);
+      localStorage.setItem(clave, JSON.stringify(lista));
+      localStorage.setItem("mascotaSeleccionada", nombre);
+
+      window.location.href = "dashboardTutor.html";
+    });
+  </script>
+</body>
+</html>

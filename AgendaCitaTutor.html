@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendar Cita</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff8f0;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #f28c28;
+      color: white;
+      padding: 1rem;
+      height: 100vh;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+    }
+
+    .doctor-item {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      background: #fff8f022;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .main-content {
+      flex-grow: 1;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .mascota-nombre {
+      text-align: center;
+      font-size: 1.8rem;
+      color: #d86f00;
+      margin-bottom: 1rem;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .day {
+      background: white;
+      border: 1px solid #f28c28;
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .day:hover {
+      background: #ffe0b3;
+    }
+
+    .horarios {
+      text-align: center;
+    }
+
+    .horarios button {
+      margin: 0.3rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #f28c28;
+      color: white;
+      cursor: pointer;
+    }
+
+    .alerta-exito {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #dff0d8;
+      color: #3c763d;
+      padding: 1.5rem;
+      border: 2px solid #3c763d;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      display: none;
+    }
+
+    .btn-regresar {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      background: white;
+      border: 2px solid #f28c28;
+      color: #f28c28;
+      padding: 0.7rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <h3>Doctores</h3>
+    <div class="doctor-item">Dra. Carolina Pérez</div>
+    <div class="doctor-item">Dr. Andrés Gómez</div>
+    <div class="doctor-item">Dra. Luisa Méndez</div>
+  </aside>
+
+  <main class="main-content">
+    <div class="mascota-nombre" id="nombre-mascota">Mascota Seleccionada</div>
+
+    <div class="calendar" id="calendario">
+      <!-- Días simulados -->
+      <div class="day" onclick="mostrarHorarios('Lunes')">Lun</div>
+      <div class="day" onclick="mostrarHorarios('Martes')">Mar</div>
+      <div class="day" onclick="mostrarHorarios('Miércoles')">Mié</div>
+      <div class="day" onclick="mostrarHorarios('Jueves')">Jue</div>
+      <div class="day" onclick="mostrarHorarios('Viernes')">Vie</div>
+      <div class="day" onclick="mostrarHorarios('Sábado')">Sáb</div>
+      <div class="day" onclick="mostrarHorarios('Domingo')">Dom</div>
+    </div>
+
+    <div class="horarios" id="horarios"></div>
+    <div class="alerta-exito" id="alerta">¡Tu cita ha sido agendada con éxito!</div>
+    <button class="btn-regresar" id="btn-regresar">Regresar</button>
+  </main>
+
+  <script>
+  // Mostrar nombre de la mascota desde localStorage
+  const mascota = localStorage.getItem("mascotaSeleccionada");
+  document.getElementById("nombre-mascota").innerText = mascota || "Mascota Seleccionada";
+
+  function mostrarHorarios(dia) {
+    const horarios = ["9:00 AM", "10:30 AM", "12:00 PM", "2:00 PM", "4:30 PM"];
+    const cont = document.getElementById("horarios");
+    cont.innerHTML = `<h3>Disponibilidad para ${dia}</h3>`;
+    horarios.forEach(hora => {
+      const btn = document.createElement("button");
+      btn.innerText = hora;
+      btn.onclick = () => agendarCita(dia, hora);
+      cont.appendChild(btn);
+    });
+  }
+
+  function agendarCita(dia, hora) {
+    if (!mascota) {
+      alert("No se ha seleccionado ninguna mascota.");
+      return;
+    }
+
+    const clave = `citas_${mascota}`;
+    const nuevaCita = { dia, hora };
+    let citas = JSON.parse(localStorage.getItem(clave)) || [];
+    citas.push(nuevaCita);
+    localStorage.setItem(clave, JSON.stringify(citas));
+
+    document.getElementById("alerta").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("alerta").style.display = "none";
+    }, 3000);
+  }
+  document.getElementById("btn-regresar").addEventListener("click", function () {
+  const correoTutor = localStorage.getItem("tutorActivo");
+  if (!correoTutor) {
+    alert("No hay tutor activo. Redirigiendo al inicio.");
+    window.location.href = "index.html"; // o a donde manejes el inicio
+  } else {
+    window.location.href = "dashboardTutor.html";
+  }
+});
+</script>
+
+</body>
+</html>
